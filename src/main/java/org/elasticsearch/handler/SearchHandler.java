@@ -209,11 +209,10 @@ public class SearchHandler {
             SearchRequest.Highlight highlight = request.getHighlight();
 
             if (highlight.getEnable()) {
-                HighlightBuilder highlightBuilder = new HighlightBuilder();
+                HighlightBuilder highlightBuilder = builder.highlight();
                 highlightBuilder.field(highlight.getHighlightFieldName());
                 highlightBuilder.preTags(highlight.getPreTag());
                 highlightBuilder.postTags(highlight.getPostTag());
-                builder.highlight(highlightBuilder);
             }
         }
 
