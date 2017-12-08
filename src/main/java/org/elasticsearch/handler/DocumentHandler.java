@@ -4,12 +4,10 @@ package org.elasticsearch.handler;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import io.searchbox.client.JestResult;
-import io.searchbox.core.Bulk;
-import io.searchbox.core.Delete;
-import io.searchbox.core.Index;
-import io.searchbox.core.Update;
+import io.searchbox.core.*;
 
 import java.beans.PropertyDescriptor;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -107,6 +105,16 @@ public class DocumentHandler {
             JestResult result = clientHandler.execute(new Bulk.Builder().addAction(update).build());
             return (result != null && result.isSucceeded()) ? true : false;
         } catch (Exception e) {
+            throw new RuntimeException("deleteDoc failed! " + e.getMessage(), e);
+        }
+    }
+
+    public boolean deleteByQuery(String indexName, String indexType, String query) {
+        try {
+            DeleteByQuery deleteByQuery = new DeleteByQuery.Builder(query).addIndex(indexName).addType(indexType).build();
+            JestResult result = clientHandler.execute(deleteByQuery);
+            return (result != null && result.isSucceeded()) ? true : false;
+        } catch (IOException e) {
             throw new RuntimeException("deleteDoc failed! " + e.getMessage(), e);
         }
     }
