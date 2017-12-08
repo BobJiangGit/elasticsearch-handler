@@ -15,11 +15,12 @@ public class SearchRequest implements Serializable {
 
     private static final long serialVersionUID = -1775272965412280972L;
 
-
+    // DSL
+    private String query;
     //索引 可为空
-    private List<String> indexName;
+    private List<String> indexName = Lists.newArrayList();
     //类型 可为空
-    private List<String> indexType;
+    private List<String> indexType = Lists.newArrayList();
     //匹配值
     private Object value;
     //字段 should匹配
@@ -105,6 +106,14 @@ public class SearchRequest implements Serializable {
         }
     }
 
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
     public Highlight getHighlight() {
         return highlight;
     }
@@ -138,15 +147,17 @@ public class SearchRequest implements Serializable {
     }
 
     public void setOneIndexName(String indexName) {
-        this.indexName = Lists.newArrayList(indexName);
+        this.indexName.add(indexName);
     }
 
     public void setOneIndexType(String indexType) {
-        this.indexType = Lists.newArrayList(indexType);
+        this.indexType.add(indexType);
     }
 
     public void setOneOrder(SearchOrder order) {
-        this.order = Lists.newArrayList(order);
+        if (this.order != null) {
+            this.order.add(order);
+        }
     }
 
     public SearchPage getPage() {
@@ -213,10 +224,10 @@ public class SearchRequest implements Serializable {
 
     @Override
     public String toString() {
-        return "SearchRequest{" +
-                "indexName='" + indexName + '\'' +
+        return "{ indexName=" + indexName +
                 ", indexType=" + indexType +
-                ", value='" + value + '\'' +
+                ", query='" + query + '\'' +
+                ", value=" + value +
                 ", should=" + should +
                 ", must=" + must +
                 ", mustNot=" + mustNot +

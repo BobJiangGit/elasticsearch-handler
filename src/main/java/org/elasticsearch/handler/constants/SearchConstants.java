@@ -13,6 +13,8 @@ public interface SearchConstants {
 
     int SEARCH_DEFAULT_SIZE = 2000;
 
+    int SEARCH_DEFAULT_ATT_SIZE = 5000;
+
     int SEARCH_MATCH_SIZE = 200;
 
     boolean SEARCH_PAGE_ENABLE = false;
@@ -36,4 +38,6 @@ public interface SearchConstants {
     String RESULT_DATA_KEY = "data";
 
     String RESULT_PAGE_KEY = "page";
+
+    String RESULT_DATA_ATT_KEY = "data_att";
 }

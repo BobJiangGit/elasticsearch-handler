@@ -50,7 +50,7 @@ public class ClientHandler {
         return jestClient;
     }
 
-    public JestResult execute(Action action) throws IOException {
+    public <T extends JestResult> T execute(Action<T> action) throws IOException {
         jestClient = getJestClient();
         return jestClient.execute(action);
     }
