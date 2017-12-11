@@ -34,7 +34,7 @@
     </properties>
 
     <build>
-        <finalName>elasticsearch-handler</finalName>
+        <finalName>mybatis-generator-extend</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
