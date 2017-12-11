@@ -6,7 +6,7 @@ import io.searchbox.indices.CreateIndex;
 import io.searchbox.indices.DeleteIndex;
 import io.searchbox.indices.IndicesExists;
 import io.searchbox.indices.mapping.PutMapping;
-import org.apache.commons.lang3.StringUtils;
+import io.searchbox.strings.StringUtils;
 
 
 /**
@@ -46,7 +46,7 @@ public class IndexHandler {
     public boolean createIndex(String indexName, String indexType, String settings, String mappings) {
         try {
             CreateIndex.Builder builder = new CreateIndex.Builder(indexName);
-            if (StringUtils.isNotEmpty(settings)) {
+            if (!StringUtils.isBlank(settings)) {
                 builder.settings(settings);
             }
             JestResult result = clientHandler.execute(builder.build());

@@ -21,7 +21,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.elasticsearch.search.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,10 +58,10 @@ public class SearchHandler {
     public Search getSearch(SearchRequest searchRequest) {
         Search.Builder builder = new Search.Builder(searchRequest.getQuery());
         if (!searchRequest.getIndexName().isEmpty()) {
-            builder.addIndex(searchRequest.getIndexName());
+            builder.addIndices(searchRequest.getIndexName());
         }
         if (!searchRequest.getIndexType().isEmpty()) {
-            builder.addType(searchRequest.getIndexType());
+            builder.addTypes(searchRequest.getIndexType());
         }
         return builder.build();
     }
@@ -314,7 +314,7 @@ public class SearchHandler {
             SearchRequest.Highlight highlight = request.getHighlight();
 
             if (highlight.getEnable()) {
-                HighlightBuilder highlightBuilder = builder.highlight();
+                HighlightBuilder highlightBuilder = builder.highlighter();
                 highlightBuilder.field(highlight.getHighlightFieldName());
                 highlightBuilder.preTags(highlight.getPreTag());
                 highlightBuilder.postTags(highlight.getPostTag());
